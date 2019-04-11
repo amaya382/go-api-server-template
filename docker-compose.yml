@@ -1,0 +1,26 @@
+version: '3'
+services:
+  db-example:
+    image: postgres:10.4
+    container_name: db-example
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - "./var/postgresql/data/:/var/lib/postgresql/data/"
+    environment:
+      - POSTGRES_DB=example
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - TZ=Asia/Tokyo
+  pgadmin:
+    image: dpage/pgadmin4:4.1
+    container_name: pgadmin
+    ports:
+      - "127.0.0.1:10080:80"
+    volumes:
+      - "./var/pgadmin/:/var/lib/pgadmin/"
+    environment:
+      - "PGADMIN_DEFAULT_EMAIL=postgres@example.com"
+      - "PGADMIN_DEFAULT_PASSWORD=password"
+    logging:
+      driver: none
