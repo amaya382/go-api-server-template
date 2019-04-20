@@ -1,4 +1,4 @@
-package gormpostgres
+package gorm
 
 import (
 	"github.com/amaya382/go-api-server-template/domain/model"
@@ -6,10 +6,16 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-type UserRepo struct{}
+type UserRepo struct {
+	db *gorm.DB
+}
+
+func NewUserRepo(db *gorm.DB) *UserRepo {
+	return &UserRepo{db}
+}
 
 func (self *UserRepo) Create(user *model.User) (*model.User, error) {
-	if err := DB.Create(user).Error; err != nil {
+	if err := self.db.Create(user).Error; err != nil {
 		return nil, err
 	}
 	return user, nil
@@ -17,9 +23,9 @@ func (self *UserRepo) Create(user *model.User) (*model.User, error) {
 
 func (self *UserRepo) Get(id uint) (*model.User, error) {
 	user := &model.User{ID: id}
-	if err := DB.First(user, user).Error; err != nil {
+	if err := self.db.First(user, user).Error; err != nil {
 		if gorm.IsRecordNotFoundError(err) {
-			tableName := GetTableName(DB, user)
+			tableName := GetTableName(self.db, user)
 			return nil, util.NewRecordNotFoundErr(tableName)
 		}
 		return nil, err
@@ -29,7 +35,7 @@ func (self *UserRepo) Get(id uint) (*model.User, error) {
 
 func (self *UserRepo) List() ([]*model.User, error) {
 	users := []*model.User{}
-	if err := DB.Find(&users, &users).Error; err != nil {
+	if err := self.db.Find(&users, &users).Error; err != nil {
 		return nil, err
 	}
 	return users, nil
@@ -37,5 +43,5 @@ func (self *UserRepo) List() ([]*model.User, error) {
 
 func (self *UserRepo) Delete(id uint) error {
 	user := &model.User{ID: id}
-	return DB.Unscoped().Delete(user, user).Error
+	return self.db.Unscoped().Delete(user, user).Error
 }

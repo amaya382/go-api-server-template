@@ -29,18 +29,6 @@ func (self RecordNotFoundErr) Error() string {
 	return "Record not found: " + self.Target
 }
 
-type AccountNotFoundErr struct {
-	Target string
-}
-
-func NewAccountNotFoundErr(target string) *AccountNotFoundErr {
-	return &AccountNotFoundErr{target}
-}
-
-func (self AccountNotFoundErr) Error() string {
-	return "Account not found: " + self.Target
-}
-
 type ErrParamContents struct {
 	IsValid bool
 	Reason  string

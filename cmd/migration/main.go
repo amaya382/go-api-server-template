@@ -1,7 +1,10 @@
 package main
 
-import "github.com/amaya382/go-api-server-template/infrastructure/gormpostgres"
+import (
+	"github.com/amaya382/go-api-server-template/infrastructure/gorm"
+)
 
 func main() {
-	gormpostgres.Migrate()
+	com := gorm.NewCommonRepo()
+	com.Migrate()
 }

@@ -1,0 +1,39 @@
+{
+    "go.gopath": "/home/amaya/go",
+    // "go.goroot": "/home/amaya/go",
+    "go.formatTool": "goimports",
+    "go.useLanguageServer": true,
+    "go.alternateTools": {
+        // "go-langserver": "bingo",
+        // "gopls": "bingo"
+        "go-langserver": "gopls"
+    },
+    // "go.languageServerFlags": [
+    //     "--diagnostics-style=instant",
+    //     "--enhance-signature-help",
+    //     "--format-style=goimports",
+    //     "--goimports-prefix='github.com/nezorflame'", // enter your own here
+    // ],
+    "go.languageServerExperimentalFeatures": {
+        "format": true,
+        "autoComplete": true,
+        "diagnostics": true,
+        "goToDefinition": true,
+        "hover": true,
+        "signatureHelp": true,
+        "goToTypeDefinition": true,
+        "documentSymbols": true,
+    },
+    "go.buildOnSave": "off",
+    "go.vetOnSave": "off",
+    "[go]": {
+        "editor.snippetSuggestions": "none",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        },
+    },
+    "go.toolsEnvVars": {
+        "GO111MODULE": "on"
+    }
+}
